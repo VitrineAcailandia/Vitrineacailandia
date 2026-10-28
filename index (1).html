@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vitrine Açailândia</title>
+<meta name="description" content="Compre e venda em Açailândia. Anunciar é grátis.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#F1F4F2; --surface:#FFFFFF; --ink:#12221D; --muted:#5B6B65; --line:#DCE3DF;
+  --brand:#0B6B57; --brand-ink:#FFFFFF; --hi:#FFC83D; --hi-ink:#3A2A00; --tint:#E3F0EB; --danger:#B3261E;
+  --font-display:'Bricolage Grotesque','Trebuchet MS',sans-serif;
+  --font-body:'Figtree','Segoe UI',system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#0E1815;--surface:#16231F;--ink:#EAF2EE;--muted:#9BB0A8;--line:#263833;--brand:#3FC9A5;--brand-ink:#06251D;--tint:#1C312A;--danger:#FF8A80;color-scheme:dark}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:32px}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+[hidden]{display:none!important}
+.wrap{max-width:760px;margin:0 auto}
+header{position:sticky;top:0;z-index:5;background:var(--bg);padding:max(12px,env(safe-area-inset-top,0px)) 0 8px;display:grid;gap:10px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:var(--font-display);font-weight:800;font-size:21px;letter-spacing:-.02em;margin:0;line-height:1.1}
+.logo span{color:var(--brand)}
+.who{display:flex;align-items:center;gap:8px}
+.pill{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600}
+.search{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 12px}
+.search input{border:0;background:transparent;flex:1;min-width:0;height:44px;outline:0}
+.search:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px var(--tint)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:500;font-size:14px}
+.chip[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--brand);color:var(--brand-ink);border-radius:14px;padding:14px 16px;margin:8px 0 20px}
+.cta p{margin:0;font-size:14px;min-width:0}
+.cta strong{display:block;font-family:var(--font-display);font-size:18px;letter-spacing:-.01em}
+.btn{border:0;border-radius:10px;padding:10px 16px;font-weight:600;background:var(--hi);color:var(--hi-ink);white-space:nowrap;text-decoration:none;display:inline-block;text-align:center}
+.btn.solid{background:var(--brand);color:var(--brand-ink)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.danger{background:transparent;border:1px solid var(--danger);color:var(--danger)}
+.btn.block{display:block;width:100%;padding:13px 16px}
+.btn[disabled]{opacity:.6;cursor:default}
+h2{font-family:var(--font-display);font-size:20px;letter-spacing:-.01em;margin:0 0 10px;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+h2 small{font-family:var(--font-body);font-size:13px;font-weight:400;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:24px}
+@media (min-width:560px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-width:0;cursor:pointer}
+.card.hl{border-color:var(--hi);box-shadow:0 0 0 2px var(--hi)}
+.thumb{aspect-ratio:4/3;display:grid;place-items:center;position:relative;overflow:hidden}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.thumb svg{width:44px;height:44px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.75}
+.badge{position:absolute;left:8px;top:8px;background:var(--hi);color:var(--hi-ink);font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;border-radius:6px;padding:3px 7px;z-index:1}
+.badge.mine{background:var(--ink);color:var(--bg)}
+.info{padding:10px 12px 12px;display:grid;gap:2px;min-width:0}
+.price{font-family:var(--font-display);font-weight:800;font-size:19px;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.name{overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-word}
+.meta{font-size:12.5px;color:var(--muted)}
+.mini{margin-top:8px;border:1px solid var(--hi);background:transparent;border-radius:8px;padding:6px 8px;font-size:13px;font-weight:600}
+.mini:hover{background:var(--hi);color:var(--hi-ink)}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:28px 0}
+.note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:8px}
+.setup{border:2px dashed var(--danger);border-radius:12px;padding:16px;margin:16px 0}
+.scrim{position:fixed;inset:0;background:rgba(5,14,11,.55);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--surface);width:100%;max-width:520px;border-radius:18px 18px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom,0px));max-height:92%;overflow-y:auto;display:grid;gap:14px}
+.sheet h3{font-family:var(--font-display);font-size:21px;margin:0;letter-spacing:-.01em}
+.sheet-head{display:flex;justify-content:space-between;align-items:start;gap:10px}
+.x{border:0;background:var(--tint);border-radius:50%;width:34px;height:34px;flex:none;font-size:18px;line-height:1}
+label{display:grid;gap:5px;font-weight:500;font-size:14px}
+.f{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:11px 12px;width:100%}
+textarea.f{min-height:76px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.err{color:var(--danger);font-size:13.5px;margin:0}
+.ok{color:var(--brand);font-size:13.5px;margin:0}
+.photo{width:100%;border-radius:12px;aspect-ratio:4/3;object-fit:cover;background:var(--tint)}
+.plans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.plan{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 4px;text-align:center;display:grid;gap:2px}
+.plan b{font-family:var(--font-display);font-size:17px}
+.plan span{font-size:12px;color:var(--muted)}
+.plan[aria-pressed="true"]{border-color:var(--hi);background:var(--hi);color:var(--hi-ink)}
+.plan[aria-pressed="true"] span{color:var(--hi-ink)}
+.stepper{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:6px 8px}
+.stepper button{width:38px;height:38px;border-radius:8px;border:0;background:var(--tint);font-size:20px;font-weight:600}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px dashed var(--line);padding-top:12px}
+.total strong{font-family:var(--font-display);font-size:28px;font-variant-numeric:tabular-nums}
+.pixbox{border:1px dashed var(--brand);border-radius:12px;padding:12px;background:var(--tint);display:grid;gap:8px}
+.pixbox code{word-break:break-all;font-size:14px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;z-index:30;font-weight:500;max-width:90%}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="top">
+      <h1 class="logo">Vitrine <span>Açailândia</span></h1>
+      <div class="who" id="who"></div>
+    </div>
+    <label class="search" for="q" style="font-weight:400">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Buscar produtos em Açailândia" autocomplete="off">
+    </label>
+    <div class="chips" id="chips" role="group" aria-label="Categorias"></div>
+  </header>
+
+  <div id="setup" class="setup" hidden>
+    <strong>Falta configurar o site.</strong>
+    <p class="meta">Abra o arquivo index.html e troque COLE_AQUI pelos dados do seu Supabase (veja o passo a passo).</p>
+  </div>
+
+  <section class="cta">
+    <p><strong>Anunciar é grátis</strong>Destaque seu anúncio a partir de R$&nbsp;5,00 por dia.</p>
+    <button class="btn" id="openNew" type="button">Anunciar</button>
+  </section>
+
+  <section id="featWrap" hidden>
+    <h2>Em destaque <small>anúncios patrocinados</small></h2>
+    <div class="grid" id="feat"></div>
+  </section>
+
+  <section>
+    <h2>Anúncios recentes <small id="count"></small></h2>
+    <div class="grid" id="list"></div>
+  </section>
+
+  <p class="note">Vitrine Açailândia: compre e venda na sua cidade.</p>
+</div>
+<div id="layer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+/* ===== CONFIGURAÇÃO: troque só estas 4 linhas ===== */
+var SUPABASE_URL = 'https://erdwknwqgdxyvouoowwe.supabase.co';       // Supabase > Project Settings > API > Project URL
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVyZHdrbndxZ2R4eXZvdW9vd3dlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyMDc5NDMsImV4cCI6MjEwODc4Mzk0M30.EK48HChDVVl0E3j2FhpEN_vQsCr9apj83l2Wp_37MSY';       // Supabase > Project Settings > API > anon public key
+var ADMIN_WHATSAPP = '5599991582021'; // seu WhatsApp com 55 + DDD, só números (recebe os pedidos de destaque)
+var PIX_KEY = 'mateusvianaoficial@gmail.com';   // sua chave Pix para receber os destaques
+/* ================================================== */
+
+var PRICE_PER_DAY = 5;
+var CATS = ['Veículos','Casa','Eletrônicos','Moda','Construção','Outros'];
+var ICON = {
+  'Veículos':'<path d="M3 15l2-6h14l2 6v4h-3v-2H6v2H3z"/><circle cx="7.5" cy="14" r=".6"/><circle cx="16.5" cy="14" r=".6"/>',
+  'Casa':'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+  'Eletrônicos':'<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>',
+  'Moda':'<path d="M8 3 3 7l3 3 2-1v12h8V9l2 1 3-3-5-4a4 4 0 0 1-8 0z"/>',
+  'Construção':'<path d="M4 6h16v4H4zM4 14h16v4H4zM10 6v4M14 14v4"/>',
+  'Outros':'<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1"/>'
+};
+var TINT = {'Veículos':'#DCE8F5','Casa':'#F3E4D3','Eletrônicos':'#E6E0F4','Moda':'#F6DDE5','Construção':'#E4EBD0','Outros':'#E3E8E6'};
+var TINTD = {'Veículos':'#1E2E40','Casa':'#3A2E22','Eletrônicos':'#2B2640','Moda':'#40242E','Construção':'#2E3720','Outros':'#26332F'};
+
+var configured = SUPABASE_URL.indexOf('COLE_AQUI') === -1 && SUPABASE_KEY.indexOf('COLE_AQUI') === -1;
+var db = configured ? supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+var user = null, items = [], cat = 'Tudo', q = '';
+
+function $(s){ return document.querySelector(s); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function money(n){ return Number(n).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}); }
+function digits(s){ return String(s || '').replace(/\D/g,''); }
+function waNumber(s){ var d = digits(s); return d.length <= 11 ? '55' + d : d; }
+function isDark(){ return window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches; }
+function isHl(i){ return i.highlighted_until && new Date(i.highlighted_until) > new Date(); }
+function daysLeft(i){ return Math.max(1, Math.ceil((new Date(i.highlighted_until) - Date.now()) / 864e5)); }
+function ago(d){
+  var m = Math.floor((Date.now() - new Date(d)) / 6e4);
+  if (m < 1) return 'agora';
+  if (m < 60) return 'há ' + m + ' min';
+  var h = Math.floor(m / 60); if (h < 24) return 'há ' + h + ' h';
+  var dd = Math.floor(h / 24); return dd === 1 ? 'ontem' : dd + ' dias';
+}
+function toast(msg){ var t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(function(){ t.remove(); }, 2800); }
+function mine(i){ return user && i.user_id === user.id; }
+
+/* ---------- lista ---------- */
+function thumb(i){
+  var bg = (isDark() ? TINTD : TINT)[i.category] || '#E3E8E6';
+  var inner = i.image_url ? '<img src="' + esc(i.image_url) + '" alt="" loading="lazy">'
+    : '<svg viewBox="0 0 24 24" aria-hidden="true">' + (ICON[i.category] || ICON['Outros']) + '</svg>';
+  var badge = isHl(i) ? '<span class="badge">Destaque</span>' : (mine(i) ? '<span class="badge mine">Seu anúncio</span>' : '');
+  return '<div class="thumb" style="background:' + bg + '">' + inner + badge + '</div>';
+}
+function card(i){
+  var boost = mine(i) ? '<button type="button" class="mini" data-boost="' + esc(i.id) + '">' +
+    (isHl(i) ? 'Prolongar destaque' : 'Destacar por R$ 5/dia') + '</button>' : '';
+  var extra = isHl(i) ? ' · ' + daysLeft(i) + (daysLeft(i) > 1 ? ' dias' : ' dia') + ' de destaque' : '';
+  return '<article class="card' + (isHl(i) ? ' hl' : '') + '" data-open="' + esc(i.id) + '">' + thumb(i) +
+    '<div class="info"><div class="price">' + money(i.price) + '</div><div class="name">' + esc(i.title) + '</div>' +
+    '<div class="meta">' + esc(i.neighborhood) + ' · ' + ago(i.created_at) + extra + '</div>' + boost + '</div></article>';
+}
+function render(){
+  var chips = $('#chips'), all = ['Tudo'].concat(CATS);
+  if (user) all.push('Meus anúncios');
+  chips.innerHTML = all.map(function(c){ return '<button type="button" class="chip" data-cat="' + esc(c) + '" aria-pressed="' + (c === cat) + '">' + esc(c) + '</button>'; }).join('');
+  var f = items.filter(function(i){
+    if (cat === 'Meus anúncios') { if (!mine(i)) return false; }
+    else if (cat !== 'Tudo' && i.category !== cat) return false;
+    return !q || (i.title + ' ' + i.neighborhood + ' ' + (i.description || '')).toLowerCase().indexOf(q) > -1;
+  });
+  var feat = f.filter(isHl).sort(function(a, b){ return new Date(b.highlighted_until) - new Date(a.highlighted_until); });
+  var rest = f.filter(function(i){ return !isHl(i); });
+  $('#featWrap').hidden = feat.length === 0;
+  $('#feat').innerHTML = feat.map(card).join('');
+  $('#list').innerHTML = rest.length ? rest.map(card).join('') :
+    '<p class="empty">' + (items.length ? 'Nenhum anúncio encontrado. Tente outra categoria ou palavra.' : 'Ainda não há anúncios. Seja o primeiro a anunciar!') + '</p>';
+  $('#count').textContent = f.length + (f.length === 1 ? ' anúncio' : ' anúncios');
+}
+async function load(){
+  if (!db) { render(); return; }
+  var r = await db.from('listings').select('*').order('created_at', {ascending:false}).limit(300);
+  if (r.error) { toast('Não foi possível carregar os anúncios.'); items = []; } else { items = r.data; }
+  render();
+}
+function paintAuth(){
+  $('#who').innerHTML = user ? '<button class="pill" id="logout" type="button">Sair</button>' : '<button class="pill" id="login" type="button">Entrar</button>';
+}
+
+/* ---------- janelas ---------- */
+function sheet(html){
+  var layer = $('#layer');
+  layer.innerHTML = '<div class="scrim" id="scrim"><div class="sheet" role="dialog" aria-modal="true">' + html + '</div></div>';
+  $('#scrim').addEventListener('click', function(e){ if (e.target.id === 'scrim') closeSheet(); });
+  var x = layer.querySelector('.x'); if (x) x.addEventListener('click', closeSheet);
+  return layer.querySelector('.sheet');
+}
+function closeSheet(){ $('#layer').innerHTML = ''; }
+function head(t){ return '<div class="sheet-head"><h3>' + esc(t) + '</h3><button class="x" type="button" aria-label="Fechar">&times;</button></div>'; }
+
+function openAuth(mode){
+  var signup = mode === 'signup';
+  var s = sheet(head(signup ? 'Criar conta' : 'Entrar') +
+    '<form id="af" style="display:grid;gap:12px">' +
+    '<label for="em">E-mail<input class="f" id="em" type="email" required autocomplete="email"></label>' +
+    '<label for="pw">Senha<input class="f" id="pw" type="password" required minlength="6" autocomplete="' + (signup ? 'new-password' : 'current-password') + '"></label>' +
+    '<p class="err" id="msg" hidden></p>' +
+    '<button class="btn solid block" type="submit">' + (signup ? 'Criar conta' : 'Entrar') + '</button></form>' +
+    '<button class="btn ghost block" type="button" id="sw">' + (signup ? 'Já tenho conta' : 'Criar uma conta grátis') + '</button>');
+  s.querySelector('#sw').addEventListener('click', function(){ openAuth(signup ? 'login' : 'signup'); });
+  s.querySelector('#af').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var msg = s.querySelector('#msg'); msg.hidden = true; msg.className = 'err';
+    if (!db) { msg.textContent = 'O site ainda não foi configurado.'; msg.hidden = false; return; }
+    var email = s.querySelector('#em').value.trim(), password = s.querySelector('#pw').value;
+    var r = signup ? await db.auth.signUp({email: email, password: password}) : await db.auth.signInWithPassword({email: email, password: password});
+    if (r.error) { msg.textContent = signup ? 'Não foi possível criar a conta. Use outro e-mail ou uma senha com 6+ caracteres.' : 'E-mail ou senha incorretos.'; msg.hidden = false; return; }
+    if (signup && !r.data.session) { msg.className = 'ok'; msg.textContent = 'Enviamos um e-mail de confirmação. Abra o e-mail e depois volte para entrar.'; msg.hidden = false; return; }
+    closeSheet(); toast('Pronto, você está dentro!');
+  });
+  s.querySelector('#em').focus();
+}
+
+function shrink(file){
+  return new Promise(function(res, rej){
+    var img = new Image(), url = URL.createObjectURL(file);
+    img.onload = function(){
+      var s = Math.min(1, 1000 / Math.max(img.width, img.height)), c = document.createElement('canvas');
+      c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+      c.toBlob(function(b){ b ? res(b) : rej(new Error('foto')); }, 'image/jpeg', 0.8);
+    };
+    img.onerror = function(){ rej(new Error('foto')); };
+    img.src = url;
+  });
+}
+
+function openNew(){
+  if (!user) { openAuth('login'); toast('Entre ou crie uma conta para anunciar.'); return; }
+  var wa = ''; try { wa = localStorage.getItem('va_wa') || ''; } catch (e) {}
+  var s = sheet(head('Novo anúncio') +
+    '<form id="nf" style="display:grid;gap:12px">' +
+    '<label for="nt">Título<input class="f" id="nt" required maxlength="80" minlength="3" placeholder="Ex.: Geladeira duplex 400 L"></label>' +
+    '<div class="row2"><label for="np">Preço (R$)<input class="f" id="np" type="number" min="0" step="0.01" required inputmode="decimal" placeholder="0,00"></label>' +
+    '<label for="nc">Categoria<select class="f" id="nc">' + CATS.map(function(c){ return '<option>' + esc(c) + '</option>'; }).join('') + '</select></label></div>' +
+    '<label for="nb">Bairro<input class="f" id="nb" required maxlength="40" placeholder="Ex.: Centro"></label>' +
+    '<label for="nw">WhatsApp para contato<input class="f" id="nw" required inputmode="tel" placeholder="(99) 99999-9999" value="' + esc(wa) + '"></label>' +
+    '<label for="nd">Descrição<textarea class="f" id="nd" maxlength="800" placeholder="Estado do produto, forma de entrega"></textarea></label>' +
+    '<label for="nf2">Foto (opcional)<input class="f" id="nf2" type="file" accept="image/*"></label>' +
+    '<p class="err" id="msg" hidden></p>' +
+    '<button class="btn solid block" type="submit" id="go">Publicar grátis</button></form>');
+  s.querySelector('#nf').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var btn = s.querySelector('#go'), msg = s.querySelector('#msg');
+    msg.hidden = true; btn.disabled = true; btn.textContent = 'Publicando...';
+    try {
+      var url = null, file = s.querySelector('#nf2').files[0];
+      if (file) {
+        var blob = await shrink(file), path = user.id + '/' + Date.now() + '.jpg';
+        var up = await db.storage.from('fotos').upload(path, blob, {contentType: 'image/jpeg'});
+        if (up.error) throw up.error;
+        url = db.storage.from('fotos').getPublicUrl(path).data.publicUrl;
+      }
+      var w = waNumber(s.querySelector('#nw').value);
+      try { localStorage.setItem('va_wa', s.querySelector('#nw').value); } catch (e2) {}
+      var r = await db.from('listings').insert({
+        title: s.querySelector('#nt').value.trim(), price: parseFloat(s.querySelector('#np').value) || 0,
+        category: s.querySelector('#nc').value, neighborhood: s.querySelector('#nb').value.trim(),
+        description: s.querySelector('#nd').value.trim(), whatsapp: w, image_url: url
+      });
+      if (r.error) throw r.error;
+      closeSheet(); cat = 'Tudo'; q = ''; $('#q').value = ''; await load(); toast('Anúncio publicado!');
+    } catch (err) {
+      msg.textContent = 'Não foi possível publicar. Confira os dados e tente de novo.'; msg.hidden = false;
+      btn.disabled = false; btn.textContent = 'Publicar grátis';
+    }
+  });
+  s.querySelector('#nt').focus();
+}
+
+function openDetail(i){
+  var wa = 'https://wa.me/' + digits(i.whatsapp) + '?text=' + encodeURIComponent('Olá! Vi seu anúncio "' + i.title + '" na Vitrine Açailândia.');
+  var html = head(i.title) +
+    (i.image_url ? '<img class="photo" src="' + esc(i.image_url) + '" alt="">' : '') +
+    '<div class="price" style="font-size:26px">' + money(i.price) + '</div>' +
+    '<div class="meta">' + esc(i.category) + ' · ' + esc(i.neighborhood) + ' · ' + ago(i.created_at) + '</div>' +
+    (i.description ? '<p style="margin:0;white-space:pre-wrap;word-break:break-word">' + esc(i.description) + '</p>' : '') +
+    '<a class="btn solid block" id="wa" href="' + esc(wa) + '" target="_blank" rel="noopener">Chamar no WhatsApp</a>';
+  if (mine(i)) html += '<button class="btn block" type="button" id="bo">' + (isHl(i) ? 'Prolongar destaque' : 'Destacar por R$ 5/dia') + '</button>' +
+    '<button class="btn danger block" type="button" id="del">Apagar anúncio</button>';
+  var s = sheet(html);
+  if (!mine(i)) return;
+  s.querySelector('#bo').addEventListener('click', function(){ openBoost(i); });
+  var del = s.querySelector('#del'), armed = false;
+  del.addEventListener('click', async function(){
+    if (!armed) { armed = true; del.textContent = 'Toque de novo para confirmar'; return; }
+    del.disabled = true;
+    var r = await db.from('listings').delete().eq('id', i.id);
+    if (r.error) { toast('Não foi possível apagar.'); del.disabled = false; return; }
+    if (i.image_url && i.image_url.indexOf('/fotos/') > -1) { db.storage.from('fotos').remove([decodeURIComponent(i.image_url.split('/fotos/')[1])]); }
+    closeSheet(); await load(); toast('Anúncio apagado.');
+  });
+}
+
+function openBoost(i){
+  var days = 1;
+  var s = sheet(head('Destacar anúncio') +
+    '<div class="meta">' + esc(i.title) + '</div><div class="plans" id="plans"></div>' +
+    '<div class="stepper"><button type="button" id="mn" aria-label="Menos um dia">&minus;</button><b id="dv"></b><button type="button" id="pl" aria-label="Mais um dia">+</button></div>' +
+    '<div class="total"><span>Total (R$ 5,00 por dia)</span><strong id="tt"></strong></div>' +
+    '<div class="pixbox"><span class="meta">1) Pague por Pix usando esta chave:</span><code id="pk">' + esc(PIX_KEY) + '</code>' +
+    '<button class="btn ghost" type="button" id="cp">Copiar chave Pix</button></div>' +
+    '<a class="btn solid block" id="send" target="_blank" rel="noopener" href="#">2) Enviar comprovante no WhatsApp</a>' +
+    '<p class="meta" style="margin:0">Assim que o pagamento for conferido, o destaque é ativado no seu anúncio.</p>');
+  function paint(){
+    s.querySelector('#dv').textContent = days + (days > 1 ? ' dias' : ' dia') + ' de destaque';
+    s.querySelector('#tt').textContent = money(days * PRICE_PER_DAY);
+    s.querySelector('#plans').innerHTML = [1, 2, 3, 7].map(function(n){
+      return '<button type="button" class="plan" data-n="' + n + '" aria-pressed="' + (n === days) + '"><b>' + n + 'd</b><span>' + money(n * PRICE_PER_DAY).replace(',00', '') + '</span></button>';
+    }).join('');
+    var msg = 'Olá! Paguei o destaque do meu anúncio "' + i.title + '" (código ' + String(i.id).slice(0, 8) + ') por ' + days + (days > 1 ? ' dias' : ' dia') + ' no valor de ' + money(days * PRICE_PER_DAY) + '. Segue o comprovante.';
+    s.querySelector('#send').href = 'https://wa.me/' + digits(ADMIN_WHATSAPP) + '?text=' + encodeURIComponent(msg);
+  }
+  paint();
+  s.querySelector('#plans').addEventListener('click', function(e){ var b = e.target.closest('[data-n]'); if (b) { days = +b.dataset.n; paint(); } });
+  s.querySelector('#mn').addEventListener('click', function(){ if (days > 1) { days--; paint(); } });
+  s.querySelector('#pl').addEventListener('click', function(){ if (days < 60) { days++; paint(); } });
+  s.querySelector('#cp').addEventListener('click', function(){
+    var done = function(){ toast('Chave Pix copiada.'); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(PIX_KEY).then(done, function(){ toast('Selecione e copie a chave acima.'); });
+    else toast('Selecione e copie a chave acima.');
+  });
+}
+
+/* ---------- eventos ---------- */
+document.addEventListener('click', function(e){
+  var c = e.target.closest('[data-cat]'); if (c) { cat = c.dataset.cat; render(); return; }
+  var b = e.target.closest('[data-boost]');
+  if (b) { e.stopPropagation(); var it = items.filter(function(x){ return x.id === b.dataset.boost; })[0]; if (it) openBoost(it); return; }
+  var o = e.target.closest('[data-open]');
+  if (o) { var it2 = items.filter(function(x){ return x.id === o.dataset.open; })[0]; if (it2) openDetail(it2); return; }
+  if (e.target.id === 'login') openAuth('login');
+  if (e.target.id === 'logout') { db.auth.signOut(); toast('Você saiu.'); }
+});
+$('#openNew').addEventListener('click', openNew);
+$('#q').addEventListener('input', function(e){ q = e.target.value.trim().toLowerCase(); render(); });
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeSheet(); });
+
+if (!configured) $('#setup').hidden = false;
+paintAuth();
+if (db) {
+  db.auth.getSession().then(function(r){ user = r.data.session ? r.data.session.user : null; paintAuth(); render(); });
+  db.auth.onAuthStateChange(function(_ev, session){ user = session ? session.user : null; if (user && cat === 'Tudo') {} paintAuth(); render(); });
+}
+load();
+</script>
+</body>
+</html>
